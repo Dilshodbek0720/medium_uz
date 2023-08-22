@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medium_uz/presentation/auth/gmail_confirm/pages/code_input.dart';
 import 'package:medium_uz/presentation/auth/gmail_confirm/pages/email_password_input.dart';
+import 'package:medium_uz/presentation/register/register_screen.dart';
 
 import '../../../cubits/auth/auth_cubit.dart';
 import '../widgets/global_button.dart';
@@ -20,6 +21,7 @@ class _GmailConfirmScreenState extends State<GmailConfirmScreen> {
 
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController gmailController = TextEditingController();
+  final TextEditingController pinController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -35,23 +37,24 @@ class _GmailConfirmScreenState extends State<GmailConfirmScreen> {
               SizedBox(height: 40.h,),
               Expanded(
                 child: PageView(
+                  physics: const NeverScrollableScrollPhysics(),
                   controller: pageController,
                   children: [
                     EmailPasswordInput(
                       gmailController: gmailController,
                       passwordController: passwordController,
                     ),
-                    CodeInput(),
+                    CodeInput(pinController: pinController),
                   ],
                 ),
               ),
               GlobalButton(
                 title: "Next",
                 onTap: () {
-                  context.read<AuthCubit>().sendCodeToGmail(
+                  pageController.page == 0 ? context.read<AuthCubit>().sendCodeToGmail(
                     gmailController.text,
                     passwordController.text,
-                  );
+                  ) : context.read<AuthCubit>().sendCode(pinController.text);
                 },
               ),
               const SizedBox(height: 50)
@@ -65,6 +68,11 @@ class _GmailConfirmScreenState extends State<GmailConfirmScreen> {
               duration: const Duration(milliseconds: 500),
               curve: Curves.linear,
             );
+          }
+          if(state is AuthConfirmCodeSuccessState){
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
+              return const RegisterScreen();
+            }));
           }
         },
       ),

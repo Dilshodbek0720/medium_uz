@@ -28,7 +28,7 @@ class EmailPasswordInput extends StatelessWidget {
             hintText: "Gmail",
             keyboardType: TextInputType.text,
             textInputAction: TextInputAction.next,
-            textAlign: TextAlign.center,
+            textAlign: TextAlign.start,
             controller: gmailController,
           ),
           SizedBox(height: 10.h,),
@@ -36,7 +36,7 @@ class EmailPasswordInput extends StatelessWidget {
             hintText: "Password",
             keyboardType: TextInputType.text,
             textInputAction: TextInputAction.done,
-            textAlign: TextAlign.center,
+            textAlign: TextAlign.start,
             controller: passwordController,
           )
         ],

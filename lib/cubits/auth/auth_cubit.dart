@@ -29,4 +29,14 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthErrorState(errorText: universalData.error));
     }
   }
+
+  Future<void> sendCode(String code)async{
+    emit(AuthLoadingState());
+    UniversalData universalData = await authRepository.confirmCode(code: code);
+    if(universalData.error.isEmpty){
+      emit(AuthConfirmCodeSuccessState());
+    }else{
+      emit(AuthErrorState(errorText: universalData.error));
+    }
+  }
 }

@@ -47,17 +47,26 @@ class SignUpScreen extends StatelessWidget {
         GlobalTextField(hintText: "Password", keyboardType: TextInputType.visiblePassword, textInputAction: TextInputAction.done, textAlign: TextAlign.start, controller: TextEditingController()),
         SizedBox(height: 50.h,),
         GlobalButton(title: "Sign up", onTap: (){ }),
-        TextButton(
-          onPressed: () {
-            onChanged.call();
-          },
-          child: const Text(
-            "Login",
-            style: TextStyle(
-                color: Color(0xFF4F8962),
-                fontSize: 18,
-                fontWeight: FontWeight.w800),
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Have an account", style: TextStyle(
+                fontSize: 15.sp,
+                color: AppColors.black.withOpacity(0.5)
+            ),),
+            TextButton(
+              onPressed: () {
+                onChanged.call();
+              },
+              child: Text(
+                "Login",
+                style: TextStyle(
+                    color: Color(0xFF4F8962),
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.w800),
+              ),
+            ),
+          ],
         ),
         TextButton(
           onPressed: () {

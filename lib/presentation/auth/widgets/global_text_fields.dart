@@ -56,8 +56,8 @@ class GlobalTextField extends StatelessWidget {
           hintText: hintText,
           hintStyle: TextStyle(
               fontSize: 16,
-              fontWeight: FontWeight.w600,
-              color: AppColors.c_0C1A30,
+              fontWeight: FontWeight.w500,
+              color: AppColors.c_0C1A30.withOpacity(0.5),
               fontFamily: "DMSans"),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
