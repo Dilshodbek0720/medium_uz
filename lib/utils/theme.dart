@@ -15,8 +15,11 @@ class AppTheme {
   );
   static ThemeData darkTheme = ThemeData(
     scaffoldBackgroundColor: AppColors.white,
+    iconTheme: IconThemeData(
+      color: Colors.black
+    ),
     appBarTheme: AppBarTheme(
-      elevation: 10,
+      elevation: 3,
       backgroundColor: AppColors.c_3669C9,
       systemOverlayStyle: SystemUiOverlayStyle(
         statusBarColor: AppColors.white,

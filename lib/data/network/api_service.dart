@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:medium_uz/data/models/universal_data.dart';
 import 'package:medium_uz/utils/constants/constants.dart';
+import '../models/articles/articles_model.dart';
 import '../models/user/user_model.dart';
 
 class ApiService{
@@ -98,22 +99,19 @@ class ApiService{
   }
 
   Future<UniversalData> registerUser({
-    required UserModel userModel,
-    required XFile file,
+    required UserModel userModel
   }) async {
     Response response;
-
     _dio.options.headers = {
       "Accept": "multipart/form-data",
     };
     try {
       response = await _dio.post(
         '/register',
-        data: userModel.getFormData(file),
+        data: await userModel.getFormData(),
       );
-
       if ((response.statusCode! >= 200) && (response.statusCode! < 300)) {
-        return UniversalData(data: response.data["message"]);
+        return UniversalData(data: response.data["data"]);
       }
       return UniversalData(error: "Other Error");
     } on DioException catch (e) {
@@ -142,7 +140,32 @@ class ApiService{
       );
 
       if ((response.statusCode! >= 200) && (response.statusCode! < 300)) {
-        return UniversalData(data: UserModel.fromJson(response.data["data"]));
+        return UniversalData(data: response.data["data"]);
+      }
+      return UniversalData(error: "Other Error");
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return UniversalData(error: e.response!.data["message"]);
+      } else {
+        return UniversalData(error: e.message!);
+      }
+    } catch (error) {
+      return UniversalData(error: error.toString());
+    }
+  }
+
+//----------------------- ARTICLES -------------------------
+  Future<UniversalData> getAllArticles() async {
+    Response response;
+    try {
+      response = await _dio.get('/articles');
+
+      if ((response.statusCode! >= 200) && (response.statusCode! < 300)) {
+        return UniversalData(
+            data: (response.data["data"] as List?)
+                ?.map((e) => ArticleModel.fromJson(e))
+                .toList() ??
+                []);
       }
       return UniversalData(error: "Other Error");
     } on DioException catch (e) {

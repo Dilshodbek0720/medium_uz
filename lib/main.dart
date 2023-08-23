@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medium_uz/cubits/articles/articles_cubit.dart';
 import 'package:medium_uz/data/local/storage_repository.dart';
 import 'package:medium_uz/data/network/api_service.dart';
+import 'package:medium_uz/data/repositories/articles_repository.dart';
 import 'package:medium_uz/presentation/app_routes.dart';
 import 'package:medium_uz/utils/theme.dart';
 
@@ -28,13 +30,21 @@ class App extends StatelessWidget {
       providers: [
         RepositoryProvider(
           create: (context) => AuthRepository(apiService: apiService),
-        )
+        ),
+        RepositoryProvider(
+          create: (context) => ArticleRepository(apiService: apiService),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
             create: (context) => AuthCubit(
               authRepository: context.read<AuthRepository>(),
+            ),
+          ),
+          BlocProvider(
+            create: (context) => ArticleCubit(
+              articleRepository: context.read<ArticleRepository>(),
             ),
           )
         ],

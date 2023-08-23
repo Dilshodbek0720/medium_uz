@@ -1,7 +1,8 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:medium_uz/data/models/universal_data.dart';
 import 'package:medium_uz/data/repositories/auth_repository.dart';
-import 'package:meta/meta.dart';
+import '../../data/models/user/user_model.dart';
 
 part 'auth_state.dart';
 
@@ -30,13 +31,52 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  Future<void> sendCode(String code)async{
+  Future<void> confirmGmail(String code) async {
     emit(AuthLoadingState());
     UniversalData universalData = await authRepository.confirmCode(code: code);
-    if(universalData.error.isEmpty){
+    if (universalData.error.isEmpty) {
       emit(AuthConfirmCodeSuccessState());
-    }else{
+    } else {
       emit(AuthErrorState(errorText: universalData.error));
+    }
+  }
+
+  Future<void> registerUser(UserModel userModel) async {
+    emit(AuthLoadingState());
+    UniversalData universalData =
+    await authRepository.registerUser(userModel: userModel);
+    if (universalData.error.isEmpty) {
+      debugPrint("TOKEN${universalData.data}");
+      authRepository.setToken(universalData.data as String);
+      emit(AuthLoggedState());
+    } else {
+      emit(AuthErrorState(errorText: universalData.error));
+    }
+  }
+
+  Future<void> loginUser({
+    required String gmail,
+    required String password,
+  }) async {
+    emit(AuthLoadingState());
+    UniversalData universalData = await authRepository.loginUser(
+      gmail: gmail,
+      password: password,
+    );
+    if (universalData.error.isEmpty) {
+      debugPrint("TOKEN${universalData.data}");
+      authRepository.setToken(universalData.data as String);
+      emit(AuthLoggedState());
+    } else {
+      emit(AuthErrorState(errorText: universalData.error));
+    }
+  }
+
+  Future<void> logOut() async {
+    emit(AuthLoadingState());
+    bool? isDeleted = await authRepository.deleteToken();
+    if (isDeleted != null) {
+      emit(AuthUnAuthenticatedState());
     }
   }
 }
