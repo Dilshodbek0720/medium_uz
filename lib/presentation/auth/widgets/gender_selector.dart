@@ -1,42 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../cubits/user_data/user_data_cubit.dart';
+import '../../../data/models/user/user_field_keys.dart';
 import '../../../utils/colors/app_colors.dart';
 
 class GenderSelector extends StatelessWidget {
   const GenderSelector({
-    super.key,
-    required this.onMaleTap,
-    required this.onFemaleTap, required this.gender,
+    super.key
   });
-
-  final VoidCallback onMaleTap;
-  final VoidCallback onFemaleTap;
-  final int gender;
 
   @override
   Widget build(BuildContext context) {
+    String gender =   context.watch<UserDataCubit>().state.userModel.gender;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         TextButton(
           style: TextButton.styleFrom(
               backgroundColor:
-              gender == 1 ? AppColors.c_3669C9 : AppColors.white),
-          onPressed: onMaleTap,
+              gender == "male" ? AppColors.c_3669C9 : AppColors.white),
+          onPressed: (){
+            context.read<UserDataCubit>().updateCurrentUserField(
+              userFieldKeys: UserFieldKeys.gender,
+              value: "male",
+            );
+          },
           child: Text(
             "MALE",
             style: TextStyle(
-                color: gender == 1 ? AppColors.white : AppColors.black),
+                color: gender == "male" ? AppColors.white : AppColors.black),
           ),
         ),
         TextButton(
             style: TextButton.styleFrom(
                 backgroundColor:
-                gender == 0 ? AppColors.c_3669C9 : AppColors.white),
-            onPressed: onFemaleTap,
+                gender == "female" ? AppColors.c_3669C9 : AppColors.white),
+            onPressed: (){
+              context.read<UserDataCubit>().updateCurrentUserField(
+                userFieldKeys: UserFieldKeys.gender,
+                value: "female",
+              );
+            },
             child: Text(
               "FEMALE",
               style: TextStyle(
-                  color: gender == 0 ? AppColors.white : AppColors.black),
+                  color: gender == "female" ? AppColors.white : AppColors.black),
             )),
       ],
     );

@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:medium_uz/cubits/auth/auth_cubit.dart';
+import 'package:medium_uz/cubits/user_data/user_data_cubit.dart';
+import 'package:medium_uz/data/models/user/user_field_keys.dart';
 import 'package:medium_uz/presentation/auth/pages/widgets/auth_button.dart';
 import '../../../data/models/user/user_model.dart';
 import '../../../utils/colors/app_colors.dart';
@@ -21,18 +23,8 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  final TextEditingController usernameController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
-  final TextEditingController gmailController = TextEditingController();
-  final TextEditingController professionController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
 
   ImagePicker picker = ImagePicker();
-
-  XFile? file;
-
-  int gender = 1;
-
 
   @override
   Widget build(BuildContext context) {
@@ -65,37 +57,35 @@ class _RegisterScreenState extends State<RegisterScreen> {
             SizedBox(height: 40.h,),
             Padding(padding: EdgeInsets.symmetric(horizontal: 30.w), child: Text("Username", style: TextStyle(color: AppColors.black),)),
             SizedBox(height: 10.h,),
-            GlobalTextField(hintText: "Username", keyboardType: TextInputType.text, textInputAction: TextInputAction.next, textAlign: TextAlign.start, controller: usernameController),
+            GlobalTextField(hintText: "Username", keyboardType: TextInputType.text, textInputAction: TextInputAction.next, textAlign: TextAlign.start, onChanged: (v){
+              context.read<UserDataCubit>().updateCurrentUserField(userFieldKeys: UserFieldKeys.username, value: v);
+            },),
             SizedBox(height: 22.h,),
             Padding(padding: EdgeInsets.symmetric(horizontal: 30.w), child: Text("Contact", style: TextStyle(color: AppColors.black),)),
             SizedBox(height: 10.h,),
-            GlobalTextField(hintText: "Contact", keyboardType: TextInputType.phone, textInputAction: TextInputAction.next, textAlign: TextAlign.start, controller: phoneController),
+            GlobalTextField(hintText: "Contact", keyboardType: TextInputType.phone, textInputAction: TextInputAction.next, textAlign: TextAlign.start, onChanged: (v){
+              context.read<UserDataCubit>().updateCurrentUserField(userFieldKeys: UserFieldKeys.contact, value: v);
+            },),
             SizedBox(height: 22.h,),
             Padding(padding: EdgeInsets.symmetric(horizontal: 30.w), child: Text("Gmail", style: TextStyle(color: AppColors.black),)),
             SizedBox(height: 10.h,),
-            GlobalTextField(hintText: "Gmail", keyboardType: TextInputType.emailAddress, textInputAction: TextInputAction.next, textAlign: TextAlign.start, controller: gmailController),
+            GlobalTextField(hintText: "Gmail", keyboardType: TextInputType.emailAddress, textInputAction: TextInputAction.next, textAlign: TextAlign.start, onChanged: (v){
+              context.read<UserDataCubit>().updateCurrentUserField(userFieldKeys: UserFieldKeys.email, value: v);
+            },),
             SizedBox(height: 22.h,),
             Padding(padding: EdgeInsets.symmetric(horizontal: 30.w), child: Text("Profession", style: TextStyle(color: AppColors.black),)),
             SizedBox(height: 10.h,),
-            GlobalTextField(hintText: "Profession", keyboardType: TextInputType.text, textInputAction: TextInputAction.next, textAlign: TextAlign.start, controller: professionController),
+            GlobalTextField(hintText: "Profession", keyboardType: TextInputType.text, textInputAction: TextInputAction.next, textAlign: TextAlign.start, onChanged: (v){
+              context.read<UserDataCubit>().updateCurrentUserField(userFieldKeys: UserFieldKeys.profession, value: v);
+            },),
             SizedBox(height: 22.h,),
             Padding(padding: EdgeInsets.symmetric(horizontal: 30.w), child: Text("Password", style: TextStyle(color: AppColors.black),)),
             SizedBox(height: 10.h,),
-            GlobalTextField(hintText: "Password", keyboardType: TextInputType.visiblePassword, textInputAction: TextInputAction.done, textAlign: TextAlign.start, controller: passwordController),
+            GlobalTextField(hintText: "Password", keyboardType: TextInputType.visiblePassword, textInputAction: TextInputAction.done, textAlign: TextAlign.start, onChanged: (v){
+              context.read<UserDataCubit>().updateCurrentUserField(userFieldKeys: UserFieldKeys.password, value: v);
+            },),
             SizedBox(height: 22.h,),
-            GenderSelector(
-              onMaleTap: () {
-                setState(() {
-                  gender = 1;
-                });
-              },
-              onFemaleTap: () {
-                setState(() {
-                  gender = 0;
-                });
-              },
-              gender: gender,
-            ),
+            GenderSelector(),
             TextButton(
                 onPressed: () {
                   showBottomSheetDialog();
@@ -103,16 +93,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 child: Text("Select image")),
 
             GlobalButton(title: "Sign up", onTap: (){
-              if (file != null &&
-                  usernameController.text.isNotEmpty &&
-                  phoneController.text.isNotEmpty &&
-                  gmailController.text.isNotEmpty &&
-                  professionController.text.isNotEmpty &&
-                  passwordController.text.length > 5) {
+              if(context.read<UserDataCubit>().canRegister()){
                 context.read<AuthCubit>().sendCodeToGmail(
-                  gmailController.text,
-                  passwordController.text,
+                  context.read<UserDataCubit>().state.userModel.email,
+                  context
+                      .read<UserDataCubit>()
+                      .state
+                      .userModel
+                      .password,
                 );
+              }else{
+                showErrorMessage(message: "Maydonlar to'liq emas", context: context);
               }
             }),
             Row(
@@ -145,23 +136,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
         );
       }, listener: (BuildContext context, AuthState state) {
         if (state is AuthSendCodeSuccessState) {
-          UserModel userModel = UserModel(
-            password: passwordController.text,
-            username: usernameController.text,
-            email: gmailController.text,
-            avatar: file!.path,
-            contact: phoneController.text,
-            gender: gender.toString(),
-            profession: professionController.text,
-            role: "male",
-          );
           Navigator.pushNamed(
             context,
             RouteNames.confirmGmail,
-            arguments: userModel,
+            arguments: context.read<UserDataCubit>().state.userModel,
           );
         }
-
         if (state is AuthErrorState) {
           showErrorMessage(message: state.errorText, context: context);
         }
@@ -216,8 +196,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
       maxWidth: 512,
     );
 
-    if (xFile != null) {
-      file = xFile;
+    if (xFile != null && context.mounted) {
+      context.read<UserDataCubit>().updateCurrentUserField(
+        userFieldKeys: UserFieldKeys.avatar,
+        value: xFile.path,
+      );
     }
   }
 
@@ -227,8 +210,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
       maxHeight: 512,
       maxWidth: 512,
     );
-    if (xFile != null) {
-      file = xFile;
+    if (xFile != null && context.mounted) {
+      context.read<UserDataCubit>().updateCurrentUserField(
+        userFieldKeys: UserFieldKeys.avatar,
+        value: xFile.path,
+      );
     }
   }
 }

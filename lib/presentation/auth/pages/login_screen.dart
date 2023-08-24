@@ -19,8 +19,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController gmailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  String gmail = "";
+  String password = "";
 
 
   @override
@@ -56,16 +56,20 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(height: 40.h,),
                 Padding(padding: EdgeInsets.symmetric(horizontal: 30.w), child: Text("Email", style: TextStyle(color: AppColors.black),)),
                 SizedBox(height: 10.h,),
-                GlobalTextField(hintText: "E-mail", keyboardType: TextInputType.emailAddress, textInputAction: TextInputAction.next, textAlign: TextAlign.start, controller: gmailController),
+                GlobalTextField(hintText: "E-mail", keyboardType: TextInputType.emailAddress, textInputAction: TextInputAction.next, textAlign: TextAlign.start, onChanged: (v){
+                  gmail = v;
+                },),
                 SizedBox(height: 22.h,),
                 Padding(padding: EdgeInsets.symmetric(horizontal: 30.w), child: Text("Password", style: TextStyle(color: AppColors.black),)),
                 SizedBox(height: 10.h,),
-                GlobalTextField(hintText: "Password", keyboardType: TextInputType.visiblePassword, textInputAction: TextInputAction.done, textAlign: TextAlign.start, controller: passwordController),
+                GlobalTextField(hintText: "Password", keyboardType: TextInputType.visiblePassword, textInputAction: TextInputAction.done, textAlign: TextAlign.start, onChanged: (v){
+                  password = v;
+                },),
                 SizedBox(height: 50.h,),
                 GlobalButton(title: "Login up", onTap: (){
                   context.read<AuthCubit>().loginUser(
-                    gmail: gmailController.text,
-                    password: passwordController.text,
+                    gmail: gmail,
+                    password: password,
                   );
                 }),
                 Row(
