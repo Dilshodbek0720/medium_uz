@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medium_uz/cubits/articles/articles_cubit.dart';
+import 'package:medium_uz/cubits/tab/tab_cubit.dart';
 import 'package:medium_uz/data/local/storage_repository.dart';
 import 'package:medium_uz/data/network/api_service.dart';
 import 'package:medium_uz/data/repositories/articles_repository.dart';
@@ -46,6 +47,9 @@ class App extends StatelessWidget {
             create: (context) => ArticleCubit(
               articleRepository: context.read<ArticleRepository>(),
             ),
+          ),
+          BlocProvider(
+              create: (context) => TabCubit()
           )
         ],
         child: const MyApp(),

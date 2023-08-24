@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:medium_uz/data/models/universal_data.dart';
 import 'package:medium_uz/data/repositories/auth_repository.dart';

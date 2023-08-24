@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medium_uz/cubits/tab/tab_cubit.dart';
 import 'package:medium_uz/presentation/tab/profile/profile_screen.dart';
 import '../../cubits/auth/auth_cubit.dart';
 import '../../utils/colors/app_colors.dart';
@@ -45,12 +46,8 @@ class _TabBoxState extends State<TabBox> {
           BottomNavigationBarItem(icon: Icon(Icons.article), label: "Article"),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
         ],
-        currentIndex: currentIndex,
-        onTap: (index) {
-          setState(() {
-            currentIndex = index;
-          });
-        },
+        currentIndex: context.watch<TabCubit>().state,
+        onTap: context.read<TabCubit>().changeTabIndex
       ),
     );
   }
