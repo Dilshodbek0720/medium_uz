@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medium_uz/cubits/profile/profile_cubit.dart';
 import 'package:medium_uz/cubits/tab/tab_cubit.dart';
 import 'package:medium_uz/presentation/tab/profile/profile_screen.dart';
 import '../../cubits/auth/auth_cubit.dart';
@@ -21,6 +22,8 @@ class _TabBoxState extends State<TabBox> {
 
   @override
   void initState() {
+    BlocProvider.of<ProfileCubit>(context).getUserData();
+    
     screens = [
       const ArticlesScreen(),
       const ProfileScreen(),

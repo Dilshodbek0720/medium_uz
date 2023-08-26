@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medium_uz/cubits/articles/articles_cubit.dart';
+import 'package:medium_uz/cubits/profile/profile_cubit.dart';
 import 'package:medium_uz/cubits/tab/tab_cubit.dart';
 import 'package:medium_uz/cubits/user_data/user_data_cubit.dart';
 import 'package:medium_uz/data/local/storage_repository.dart';
 import 'package:medium_uz/data/network/api_service.dart';
 import 'package:medium_uz/data/repositories/articles_repository.dart';
+import 'package:medium_uz/data/repositories/profile_repository.dart';
 import 'package:medium_uz/presentation/app_routes.dart';
 import 'package:medium_uz/utils/theme.dart';
 
@@ -34,6 +36,9 @@ class App extends StatelessWidget {
           create: (context) => AuthRepository(apiService: apiService),
         ),
         RepositoryProvider(
+            create: (context) => ProfileRepository(apiService: apiService),
+        ),
+        RepositoryProvider(
           create: (context) => ArticleRepository(apiService: apiService),
         ),
       ],
@@ -50,11 +55,12 @@ class App extends StatelessWidget {
             ),
           ),
           BlocProvider(
-              create: (context) => TabCubit()
+              create: (context) => ProfileCubit(
+                  profileRepository: context.read<ProfileRepository>(),
+              )
           ),
-          BlocProvider(
-              create: (context) => UserDataCubit()
-          )
+          BlocProvider(create: (context) => TabCubit()),
+          BlocProvider(create: (context) => UserDataCubit())
         ],
         child: const MyApp(),
       ),

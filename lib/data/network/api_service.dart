@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:medium_uz/data/local/storage_repository.dart';
 import 'package:medium_uz/data/models/universal_data.dart';
 import 'package:medium_uz/utils/constants/constants.dart';
 import '../models/articles/articles_model.dart';
@@ -34,6 +35,7 @@ class ApiService{
             },
             onRequest: (requestOptions, handler) async{
               debugPrint("SO'ROV  YUBORILDI :${requestOptions.path}");
+              requestOptions.headers.addAll({"token": StorageRepository.getString("token")});
               // return handler.resolve(Response(requestOptions: requestOptions, data: {"name": "ali", "age": 26}));
               return handler.next(requestOptions);
             },
@@ -154,7 +156,32 @@ class ApiService{
     }
   }
 
+//----------------------- PROFILE -------------------------
+
+
+  Future<UniversalData> getProfileData() async{
+    Response response;
+    try{
+      response = await _dio.get('/users');
+
+      if((response.statusCode! >= 200) && (response.statusCode! < 300)){
+        return UniversalData(data: UserModel.fromJson(response.data["data"]));
+      }
+      return UniversalData(error: "Other Error");
+    }on DioException catch (e) {
+      if (e.response != null) {
+        return UniversalData(error: e.response!.data["message"]);
+      } else {
+        return UniversalData(error: e.message!);
+      }
+    } catch (error) {
+      return UniversalData(error: error.toString());
+    }
+  }
+
+
 //----------------------- ARTICLES -------------------------
+
   Future<UniversalData> getAllArticles() async {
     Response response;
     try {

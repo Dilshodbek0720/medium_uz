@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinput/pinput.dart';
 import '../../../cubits/auth/auth_cubit.dart';
+import '../../../cubits/profile/profile_cubit.dart';
+import '../../../cubits/user_data/user_data_cubit.dart';
 import '../../../data/models/user/user_model.dart';
 import '../../../utils/colors/app_colors.dart';
 import '../../../utils/ui_utils/error_message_dialog.dart';
@@ -122,6 +124,8 @@ class _GmailConfirmScreenState extends State<GmailConfirmScreen> {
           }
 
           if (state is AuthLoggedState) {
+            context.read<UserDataCubit>().clearData();
+            BlocProvider.of<ProfileCubit>(context).getUserData();
             Navigator.pushReplacementNamed(context, RouteNames.tabBox);
           }
 
