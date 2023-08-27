@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medium_uz/cubits/auth/auth_cubit.dart';
-import 'package:medium_uz/presentation/auth/pages/widgets/auth_button.dart';
+import 'package:medium_uz/presentation/auth/widgets/auth_button.dart';
 import 'package:medium_uz/presentation/auth/widgets/global_button.dart';
 import 'package:medium_uz/presentation/auth/widgets/global_text_fields.dart';
 import 'package:medium_uz/utils/colors/app_colors.dart';

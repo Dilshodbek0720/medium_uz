@@ -5,7 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:medium_uz/cubits/auth/auth_cubit.dart';
 import 'package:medium_uz/cubits/user_data/user_data_cubit.dart';
 import 'package:medium_uz/data/models/user/user_field_keys.dart';
-import 'package:medium_uz/presentation/auth/pages/widgets/auth_button.dart';
+import 'package:medium_uz/presentation/auth/widgets/auth_button.dart';
 import '../../../data/models/user/user_model.dart';
 import '../../../utils/colors/app_colors.dart';
 import '../../../utils/images/app_images.dart';

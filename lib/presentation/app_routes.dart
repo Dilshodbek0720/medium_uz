@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:medium_uz/data/models/user/user_model.dart';
-import 'package:medium_uz/presentation/auth/pages/login_screen.dart';
+import 'package:medium_uz/presentation/auth/login/login_screen.dart';
 import 'package:medium_uz/presentation/splash/splash_screen.dart';
 import 'package:medium_uz/presentation/tab/tab_box.dart';
 import 'auth/gmail_confirm/gmail_confirm_screen.dart';
-import 'auth/pages/register_screen.dart';
+import 'auth/register/register_screen.dart';
 
 class RouteNames {
   static const String splashScreen = "/";
