@@ -1,19 +1,37 @@
-import '../../data/models/articles/articles_model.dart';
+import 'package:equatable/equatable.dart';
+import 'package:medium_uz/data/models/articles/articles_model.dart';
+import '../../data/models/status/form_status.dart';
 
-abstract class ArticleState {}
+class ArticleFetchState extends Equatable{
+  final String statusText;
+  final ArticleModel? articleDetail;
+  final List<ArticleModel> articles;
+  final FormStatus status;
 
-class ArticleInitial extends ArticleState {}
+  const ArticleFetchState({
+    this.articleDetail,
+    this.statusText = "",
+    this.status = FormStatus.pure,
+    required this.articles,
+  });
 
-class ArticleLoadingState extends ArticleState {}
+  ArticleFetchState copyWith({
+    String? statusText,
+    ArticleModel? articleDetail,
+    List<ArticleModel>? articles,
+    FormStatus? status,
+  }) => ArticleFetchState(
+    articleDetail: articleDetail ?? this.articleDetail,
+    articles: articles ?? this.articles,
+    statusText: statusText ?? this.statusText,
+    status: status ?? this.status,
+  );
 
-class ArticleSuccessState extends ArticleState {
-  ArticleSuccessState({required this.articleModels});
-  List<ArticleModel> articleModels;
-
-}
-
-class ArticleErrorState extends ArticleState {
-  final String errorText;
-
-  ArticleErrorState({required this.errorText});
+  @override
+  List<Object?> get props => [
+    articles,
+    statusText,
+    status,
+    articleDetail,
+  ];
 }

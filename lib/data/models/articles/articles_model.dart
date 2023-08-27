@@ -1,4 +1,8 @@
 
+import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:image_picker/image_picker.dart';
+
 class ArticleModel {
   final int artId;
   final String image;
@@ -40,6 +44,19 @@ class ArticleModel {
       addDate: json["add_date"] as String? ?? "",
       username: json["username"] as String? ?? "",
     );
+  }
+
+  Future<FormData> getFormData() async {
+    XFile file = XFile(image);
+    String fileName = file.path.split('/').last;
+    debugPrint(file.path);
+    debugPrint(fileName);
+    return FormData.fromMap({
+      "title": title,
+      "description": description,
+      "hashtag": "hashtag",
+      "image": file.path,
+    });
   }
 
   Map<String, dynamic> toJson() {

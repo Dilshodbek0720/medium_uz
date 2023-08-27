@@ -7,4 +7,7 @@ class ArticleRepository {
   ArticleRepository({required this.apiService});
 
   Future<UniversalData> getAllArticles() async => apiService.getAllArticles();
+
+  Future<UniversalData> getArticleById(int articleId) async =>
+      apiService.getArticleById(articleId);
 }

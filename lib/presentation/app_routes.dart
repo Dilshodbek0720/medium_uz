@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:medium_uz/data/models/user/user_model.dart';
 import 'package:medium_uz/presentation/auth/login/login_screen.dart';
 import 'package:medium_uz/presentation/splash/splash_screen.dart';
+import 'package:medium_uz/presentation/tab/articles/sub_screens/article_detail_screen.dart';
 import 'package:medium_uz/presentation/tab/tab_box.dart';
 import 'package:medium_uz/presentation/tab/websites/sub_screens/add_website_screen.dart';
 import 'package:medium_uz/presentation/tab/websites/sub_screens/website_detail_screen.dart';
@@ -16,6 +17,7 @@ class RouteNames {
   static const String confirmGmail = "/confirm_gmail";
   static const String addWebsite = "/add_website";
   static const String websiteDetail = "/website_detail";
+  static const String articleDetail = "/article_detail";
 }
 
 class AppRoutes {
@@ -41,6 +43,9 @@ class AppRoutes {
 
       case RouteNames.websiteDetail:
         return MaterialPageRoute(builder: (context) => WebsiteDetailScreen());
+
+      case RouteNames.articleDetail:
+        return MaterialPageRoute(builder: (context) => ArticleDetailScreen());
 
       case RouteNames.confirmGmail:
         return MaterialPageRoute(builder: (context) => GmailConfirmScreen(userModel: settings.arguments as UserModel,));

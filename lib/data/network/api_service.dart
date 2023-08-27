@@ -276,4 +276,45 @@ class ApiService{
       return UniversalData(error: error.toString());
     }
   }
+
+  Future<UniversalData> createArticle(
+      {required ArticleModel articleModel}) async {
+    Response response;
+    _dioSecure.options.headers = {
+      "Accept": "multipart/form-data",
+    };
+    try {
+      response = await _dioSecure.post(
+        '/articles',
+        data: await articleModel.getFormData(),
+      );
+      if ((response.statusCode! >= 200) && (response.statusCode! < 300)) {
+        return UniversalData(data: response.data["data"]);
+      }
+      return UniversalData(error: "Other Error");
+    } on SocketException catch (e) {
+      return UniversalData(error: e.toString());
+    } on DioException catch (e) {
+      return DioCustomError.getDioCustomError(e);
+    } catch (error) {
+      return UniversalData(error: error.toString());
+    }
+  }
+
+  Future<UniversalData> getArticleById(int id) async {
+    Response response;
+    try {
+      response = await _dioSecure.get('/articles/$id');
+
+      if ((response.statusCode! >= 200) && (response.statusCode! < 300)) {
+        return UniversalData(
+            data: ArticleModel.fromJson(response.data["data"]));
+      }
+      return UniversalData(error: "Other Error");
+    } on DioException catch (e) {
+      return DioCustomError.getDioCustomError(e);
+    } catch (error) {
+      return UniversalData(error: error.toString());
+    }
+  }
 }

@@ -13,7 +13,6 @@ import 'package:medium_uz/data/repositories/profile_repository.dart';
 import 'package:medium_uz/data/repositories/website_repository.dart';
 import 'package:medium_uz/presentation/app_routes.dart';
 import 'package:medium_uz/utils/theme.dart';
-
 import 'cubits/auth/auth_cubit.dart';
 import 'cubits/website_fetch/website_fetch_cubit.dart';
 import 'data/repositories/auth_repository.dart';
@@ -56,7 +55,7 @@ class App extends StatelessWidget {
             ),
           ),
           BlocProvider(
-            create: (context) => ArticleCubit(
+            create: (context) => ArticleFetchCubit(
               articleRepository: context.read<ArticleRepository>(),
             ),
           ),
