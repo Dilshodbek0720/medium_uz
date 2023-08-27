@@ -1,12 +1,15 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 import 'package:medium_uz/cubits/profile/profile_cubit.dart';
+import 'package:medium_uz/presentation/tab/widgets/custom_appbar.dart';
+import 'package:medium_uz/utils/images/app_images.dart';
 import 'package:medium_uz/utils/ui_utils/custom_circular.dart';
 import 'package:medium_uz/utils/ui_utils/error_message_dialog.dart';
 import '../../../cubits/auth/auth_cubit.dart';
-import '../../../utils/colors/app_colors.dart';
 import '../../../utils/constants/constants.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -20,28 +23,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Profile"),
-        systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: AppColors.c_3669C9,
-          statusBarBrightness: Brightness.light,
-          statusBarIconBrightness: Brightness.light,
-        ),
-        toolbarHeight: 64.h,
-        centerTitle: true,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            bottom: Radius.elliptical(MediaQuery.of(context).size.height, 100.0),
-          ),
-        ),
-        actions: [
-          IconButton(
-              onPressed: () {
-                BlocProvider.of<AuthCubit>(context).logOut();
-              },
-              icon: const Icon(Icons.logout)),
-          SizedBox(width: 7.w,)
-        ],
+      appBar: CustomAppbar(
+        title: "Profile Screen",
+        onTap: () {
+          BlocProvider.of<AuthCubit>(context).logOut();
+        },
+        icon: const Icon(Icons.logout),
       ),
       body: BlocConsumer<ProfileCubit, ProfileState>(
         builder: (context, state){
@@ -51,7 +38,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           if(state is ProfileSuccessState){
             return Column(
               children: [
-                SizedBox(height: 12.h,),
+                SizedBox(height: 24.h,),
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(110.r),
@@ -59,16 +46,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(110.r),
-                    child: Image.network(
-                      baseUrl + state.userModel.avatar.substring(1),
+                    child: CachedNetworkImage(
+                      height: 220.r,
                       width: 220.r,
-                    ),
+                      imageUrl: baseUrl + state.userModel.avatar.substring(1),
+                      placeholder: (context, url) => SizedBox(
+                        height: 220.r,
+                          width: 220.r,
+                          child: Lottie.asset(AppImages.profileLottie)
+                      ),
+                      errorWidget: (context, url, error) => const Icon(Icons.error),
+                    )
                   ),
                 ),
                 SizedBox(height: 26.h,),
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 20.w),
-                  height: 400.h,
+                  height: 385.h,
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(

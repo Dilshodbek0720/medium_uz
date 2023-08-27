@@ -6,4 +6,8 @@ class AppImages{
   // png
   static String medium = "assets/images/medium.png";
 
+  // lottie
+  static String imageLottie = "assets/lottie/image_lottie.json";
+  static String profileLottie = "assets/lottie/profile_lottie.json";
+
 }

@@ -1,14 +1,15 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 import 'package:medium_uz/cubits/website_fetch/website_fetch_cubit.dart';
 import 'package:medium_uz/data/models/status/form_status.dart';
+import 'package:medium_uz/presentation/tab/widgets/custom_appbar.dart';
 import 'package:medium_uz/utils/constants/constants.dart';
 import 'package:medium_uz/utils/ui_utils/error_message_dialog.dart';
-
 import '../../../data/models/websites/website_model.dart';
-import '../../../utils/colors/app_colors.dart';
+import '../../../utils/images/app_images.dart';
 import '../../app_routes.dart';
 
 class WebsitesScreen extends StatefulWidget {
@@ -32,29 +33,12 @@ class _WebsitesScreenState extends State<WebsitesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Websites screen"),
-        systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: AppColors.c_3669C9,
-          statusBarBrightness: Brightness.light,
-          statusBarIconBrightness: Brightness.light,
-        ),
-        toolbarHeight: 64.h,
-        centerTitle: true,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            bottom: Radius.elliptical(MediaQuery.of(context).size.height, 100.0),
-          ),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.pushNamed(context, RouteNames.addWebsite);
-            },
-            icon: const Icon(Icons.add),
-          ),
-          SizedBox(width: 7.w,)
-        ],
+      appBar: CustomAppbar(
+        title: "Websites Screen",
+        onTap: () {
+          Navigator.pushNamed(context, RouteNames.addWebsite);
+        },
+        icon: const Icon(Icons.add),
       ),
         body: BlocConsumer<WebsiteFetchCubit, WebsiteFetchState>(
           builder: (context, state) {
@@ -76,7 +60,18 @@ class _WebsitesScreenState extends State<WebsitesScreen> {
                       ),
                     ),
                     subtitle: Text(website.link),
-                    trailing: Image.network(baseUrl+website.image.substring(1), width: 45.w, height: 45.w, fit: BoxFit.cover,),
+                    trailing: CachedNetworkImage(
+                      imageUrl: baseUrl+website.image.substring(1),
+                      height: 45.r,
+                      width: 45.r,
+                      fit: BoxFit.cover,
+                      placeholder: (context, url) => SizedBox(
+                          height: 22.r,
+                          width: 22.r,
+                          child: Lottie.asset(AppImages.imageLottie)
+                      ),
+                      errorWidget: (context, url, error) => const Icon(Icons.error),
+                    ),
                   );
                 }),
               ],

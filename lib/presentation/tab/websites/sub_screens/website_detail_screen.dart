@@ -1,10 +1,14 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 import '../../../../cubits/website_fetch/website_fetch_cubit.dart';
 import '../../../../data/models/status/form_status.dart';
 import '../../../../utils/colors/app_colors.dart';
 import '../../../../utils/constants/constants.dart';
+import '../../../../utils/images/app_images.dart';
 import '../../../../utils/ui_utils/error_message_dialog.dart';
 
 class WebsiteDetailScreen extends StatelessWidget {
@@ -37,9 +41,16 @@ class WebsiteDetailScreen extends StatelessWidget {
           return SingleChildScrollView(
             child: Column(
               children: [
-                Image.network(
-                  baseUrl + state.websiteDetail!.image.substring(1),
-                  width: 300,
+                CachedNetworkImage(
+                  imageUrl: baseUrl + state.websiteDetail!.image.substring(1),
+                  height: 300.r,
+                  width: 300.r,
+                  placeholder: (context, url) => SizedBox(
+                      height: 300.r,
+                      width: 300.r,
+                      child: Lottie.asset(AppImages.imageLottie)
+                  ),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
                 Text(
                   state.websiteDetail!.name,

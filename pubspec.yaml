@@ -21,6 +21,8 @@ dependencies:
   zoom_tap_animation: ^1.1.0
   pinput: ^3.0.0
   equatable: ^2.0.5
+  cached_network_image: ^3.2.3
+  lottie: ^2.6.0
 
 
 dev_dependencies:
@@ -36,6 +38,7 @@ flutter:
   assets:
     - assets/images/
     - assets/svg/
+    - assets/lottie/
 
 
   fonts:
