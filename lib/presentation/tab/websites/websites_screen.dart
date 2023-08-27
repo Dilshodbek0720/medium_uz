@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medium_uz/cubits/website_fetch/website_fetch_cubit.dart';
 import 'package:medium_uz/data/models/status/form_status.dart';
+import 'package:medium_uz/utils/constants/constants.dart';
 import 'package:medium_uz/utils/ui_utils/error_message_dialog.dart';
 
 import '../../../data/models/websites/website_model.dart';
@@ -37,13 +39,21 @@ class _WebsitesScreenState extends State<WebsitesScreen> {
           statusBarBrightness: Brightness.light,
           statusBarIconBrightness: Brightness.light,
         ),
+        toolbarHeight: 64.h,
+        centerTitle: true,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.elliptical(MediaQuery.of(context).size.height, 100.0),
+          ),
+        ),
         actions: [
           IconButton(
             onPressed: () {
               Navigator.pushNamed(context, RouteNames.addWebsite);
             },
             icon: const Icon(Icons.add),
-          )
+          ),
+          SizedBox(width: 7.w,)
         ],
       ),
         body: BlocConsumer<WebsiteFetchCubit, WebsiteFetchState>(
@@ -66,6 +76,7 @@ class _WebsitesScreenState extends State<WebsitesScreen> {
                       ),
                     ),
                     subtitle: Text(website.link),
+                    trailing: Image.network(baseUrl+website.image.substring(1), width: 45.w, height: 45.w, fit: BoxFit.cover,),
                   );
                 }),
               ],

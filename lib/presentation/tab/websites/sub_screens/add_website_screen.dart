@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../../cubits/website_add/website_add_cubit.dart';
 import '../../../../cubits/website_fetch/website_fetch_cubit.dart';
@@ -49,6 +50,7 @@ class _AddWebsiteScreenState extends State<AddWebsiteScreen> {
                       color: Colors.black),
                 ),
               ),
+              SizedBox(height: 16.h,),
               GlobalTextField(
                 hintText: "LINK",
                 keyboardType: TextInputType.text,
@@ -61,6 +63,7 @@ class _AddWebsiteScreenState extends State<AddWebsiteScreen> {
                   );
                 },
               ),
+              SizedBox(height: 20.h,),
               GlobalTextField(
                 hintText: "NAME",
                 keyboardType: TextInputType.text,
@@ -73,6 +76,7 @@ class _AddWebsiteScreenState extends State<AddWebsiteScreen> {
                   );
                 },
               ),
+              SizedBox(height: 20.h,),
               GlobalTextField(
                 hintText: "AUTHOR",
                 keyboardType: TextInputType.text,
@@ -85,6 +89,7 @@ class _AddWebsiteScreenState extends State<AddWebsiteScreen> {
                   );
                 },
               ),
+              SizedBox(height: 20.h,),
               GlobalTextField(
                 hintText: "CONTACT",
                 keyboardType: TextInputType.phone,
@@ -97,6 +102,7 @@ class _AddWebsiteScreenState extends State<AddWebsiteScreen> {
                   );
                 },
               ),
+              SizedBox(height: 20.h,),
               GlobalTextField(
                 hintText: "HASHTAG",
                 keyboardType: TextInputType.text,
@@ -109,6 +115,7 @@ class _AddWebsiteScreenState extends State<AddWebsiteScreen> {
                   );
                 },
               ),
+              SizedBox(height: 20.h,),
               TextButton(
                 onPressed: () {
                   showBottomSheetDialog();
@@ -118,7 +125,7 @@ class _AddWebsiteScreenState extends State<AddWebsiteScreen> {
                   children: [Text("Select Image"), Icon(Icons.image)],
                 ),
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: 20.h),
               GlobalButton(
                 title: "Add Website",
                 onTap: () {

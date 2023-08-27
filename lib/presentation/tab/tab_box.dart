@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medium_uz/cubits/profile/profile_cubit.dart';
 import 'package:medium_uz/cubits/tab/tab_cubit.dart';
 import 'package:medium_uz/presentation/tab/profile/profile_screen.dart';
@@ -48,15 +49,22 @@ class _TabBoxState extends State<TabBox> {
           }
         },
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor:  AppColors.c_3669C9,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.web), label: "Websites"),
-          BottomNavigationBarItem(icon: Icon(Icons.article), label: "Article"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
-        ],
-        currentIndex: context.watch<TabCubit>().state,
-        onTap: context.read<TabCubit>().changeTabIndex
+      bottomNavigationBar: ClipRRect(
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(24.r), topRight: Radius.circular(24.r)),
+        child: BottomNavigationBar(
+          selectedIconTheme: const IconThemeData(
+            color: Colors.white
+          ),
+          selectedItemColor: Colors.white,
+          backgroundColor:  AppColors.c_3669C9,
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.web), label: "Websites"),
+            BottomNavigationBarItem(icon: Icon(Icons.article), label: "Article"),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+          ],
+          currentIndex: context.watch<TabCubit>().state,
+          onTap: context.read<TabCubit>().changeTabIndex
+        ),
       ),
     );
   }

@@ -40,11 +40,19 @@ class _ArticlesScreenState extends State<ArticlesScreen> {
           statusBarBrightness: Brightness.light,
           statusBarIconBrightness: Brightness.light,
         ),
+        toolbarHeight: 64.h,
+        centerTitle: true,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.elliptical(MediaQuery.of(context).size.height, 100.0),
+          ),
+        ),
         actions: [
           IconButton(
             onPressed: () {},
             icon: const Icon(Icons.add),
-          )
+          ),
+          SizedBox(width: 7.w,)
         ],
       ),
       body: BlocConsumer<ArticleFetchCubit, ArticleFetchState>(
