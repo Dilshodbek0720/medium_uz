@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../data/models/articles/articles_model.dart';
 import '../../data/models/universal_data.dart';
 import '../../data/repositories/articles_repository.dart';
-import 'articles_state.dart';
+import 'article_fetch_state.dart';
 
 class ArticleCubit extends Cubit<ArticleState> {
   ArticleCubit({required this.articleRepository}) : super(ArticleInitial());

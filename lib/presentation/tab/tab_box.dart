@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medium_uz/cubits/profile/profile_cubit.dart';
 import 'package:medium_uz/cubits/tab/tab_cubit.dart';
 import 'package:medium_uz/presentation/tab/profile/profile_screen.dart';
+import 'package:medium_uz/presentation/tab/websites/websites_screen.dart';
 import '../../cubits/auth/auth_cubit.dart';
 import '../../utils/colors/app_colors.dart';
 import '../app_routes.dart';
@@ -25,6 +26,7 @@ class _TabBoxState extends State<TabBox> {
     BlocProvider.of<ProfileCubit>(context).getUserData();
     
     screens = [
+      const WebsitesScreen(),
       const ArticlesScreen(),
       const ProfileScreen(),
     ];
@@ -36,7 +38,10 @@ class _TabBoxState extends State<TabBox> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocListener<AuthCubit, AuthState>(
-        child: screens[context.watch<TabCubit>().state],
+        child: IndexedStack(
+          index: context.watch<TabCubit>().state,
+          children: screens,
+        ),
         listener: (context, state) {
           if (state is AuthUnAuthenticatedState) {
             Navigator.pushReplacementNamed(context, RouteNames.loginScreen);
@@ -46,6 +51,7 @@ class _TabBoxState extends State<TabBox> {
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor:  AppColors.c_3669C9,
         items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.web), label: "Websites"),
           BottomNavigationBarItem(icon: Icon(Icons.article), label: "Article"),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
         ],

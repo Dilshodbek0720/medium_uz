@@ -3,6 +3,8 @@ import 'package:medium_uz/data/models/user/user_model.dart';
 import 'package:medium_uz/presentation/auth/login/login_screen.dart';
 import 'package:medium_uz/presentation/splash/splash_screen.dart';
 import 'package:medium_uz/presentation/tab/tab_box.dart';
+import 'package:medium_uz/presentation/tab/websites/sub_screens/add_website_screen.dart';
+import 'package:medium_uz/presentation/tab/websites/sub_screens/website_detail_screen.dart';
 import 'auth/gmail_confirm/gmail_confirm_screen.dart';
 import 'auth/register/register_screen.dart';
 
@@ -12,6 +14,8 @@ class RouteNames {
   static const String registerScreen = "/register_screen";
   static const String tabBox = "/tab_box";
   static const String confirmGmail = "/confirm_gmail";
+  static const String addWebsite = "/add_website";
+  static const String websiteDetail = "/website_detail";
 }
 
 class AppRoutes {
@@ -31,6 +35,12 @@ class AppRoutes {
 
       case RouteNames.tabBox:
         return MaterialPageRoute(builder: (context) => TabBox());
+
+      case RouteNames.addWebsite:
+        return MaterialPageRoute(builder: (context) => AddWebsiteScreen());
+
+      case RouteNames.websiteDetail:
+        return MaterialPageRoute(builder: (context) => WebsiteDetailScreen());
 
       case RouteNames.confirmGmail:
         return MaterialPageRoute(builder: (context) => GmailConfirmScreen(userModel: settings.arguments as UserModel,));

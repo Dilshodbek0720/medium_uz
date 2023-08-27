@@ -58,6 +58,8 @@ class WebsiteModel {
   Future<FormData> getFormData() async {
     XFile file = XFile(image);
     String fileName = file.path.split('/').last;
+    print(file.path);
+    print(fileName);
     return FormData.fromMap({
       "name": name,
       "link": link,
