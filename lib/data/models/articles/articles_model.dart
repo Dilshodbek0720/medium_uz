@@ -30,6 +30,33 @@ class ArticleModel {
     required this.username,
   });
 
+  ArticleModel copyWith({
+    int? artId,
+    int? userId,
+    String? profession,
+    String? likes,
+    String? image,
+    String? description,
+    String? views,
+    String? title,
+    String? avatar,
+    String? addDate,
+    String? username,
+  }) =>
+      ArticleModel(
+        artId: artId ?? this.artId,
+        userId: userId ?? this.userId,
+        profession: profession ?? this.profession,
+        likes: likes ?? this.likes,
+        image: image ?? this.image,
+        description: description ?? this.description,
+        views: views ?? this.views,
+        title: title ?? this.title,
+        avatar: avatar ?? this.avatar,
+        addDate: addDate ?? this.addDate,
+        username: username ?? this.username,
+      );
+
   factory ArticleModel.fromJson(Map<String, dynamic> json) {
     return ArticleModel(
       userId: json["user_id"] as int? ?? 0,

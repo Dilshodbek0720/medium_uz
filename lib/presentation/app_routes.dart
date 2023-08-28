@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:medium_uz/data/models/user/user_model.dart';
 import 'package:medium_uz/presentation/auth/login/login_screen.dart';
 import 'package:medium_uz/presentation/splash/splash_screen.dart';
+import 'package:medium_uz/presentation/tab/articles/sub_screens/article_add_screen.dart';
 import 'package:medium_uz/presentation/tab/articles/sub_screens/article_detail_screen.dart';
 import 'package:medium_uz/presentation/tab/tab_box.dart';
 import 'package:medium_uz/presentation/tab/websites/sub_screens/add_website_screen.dart';
@@ -18,6 +19,7 @@ class RouteNames {
   static const String addWebsite = "/add_website";
   static const String websiteDetail = "/website_detail";
   static const String articleDetail = "/article_detail";
+  static const String addArticle = "/add_article";
 }
 
 class AppRoutes {
@@ -46,6 +48,9 @@ class AppRoutes {
 
       case RouteNames.articleDetail:
         return MaterialPageRoute(builder: (context) => ArticleDetailScreen());
+
+      case RouteNames.addArticle:
+        return MaterialPageRoute(builder: (context) => ArticleAddScreen());
 
       case RouteNames.confirmGmail:
         return MaterialPageRoute(builder: (context) => GmailConfirmScreen(userModel: settings.arguments as UserModel,));

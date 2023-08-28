@@ -18,3 +18,9 @@ class StatusTextConstants {
   static String gotAllWebsite = "got_all_website";
   static String gotWebsiteById = "got_website_by_id";
 }
+
+class StatusTextArticlesConstants {
+  static String articleAdd = "article_add";
+  static String gotAllArticle = "got_all_article";
+  static String gotArticleById = "got_article_by_id";
+}

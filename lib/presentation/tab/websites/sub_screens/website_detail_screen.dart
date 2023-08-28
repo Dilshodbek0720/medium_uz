@@ -1,11 +1,13 @@
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
+import 'package:medium_uz/utils/ui_utils/custom_circular.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../cubits/website_fetch/website_fetch_cubit.dart';
 import '../../../../data/models/status/form_status.dart';
@@ -34,13 +36,7 @@ class WebsiteDetailScreen extends StatelessWidget {
         builder: (context, state) {
           if (state.websiteDetail == null) {
             return const Center(
-              child: Text(
-                "Loading...",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 35,
-                ),
-              ),
+              child: CupertinoActivityIndicator(),
             );
           }
           return Column(
@@ -95,66 +91,53 @@ class WebsiteDetailScreen extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 25.h,),
-              Container(
-                height: 330.h,
-                width: 320.w,
-                padding: EdgeInsets.all(24.r),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(16.r), topRight: Radius.circular(22.r)),
-                    border: Border.all(width: 3, color: Colors.black26)
+              SizedBox(height: 20.h,),
+              Text(
+                state.websiteDetail!.name.substring(0,1).toUpperCase()+state.websiteDetail!.name.substring(1),
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 30.sp,
+                    fontWeight: FontWeight.w600
                 ),
-                child: Column(
-                  children: [
-                    SizedBox(height: 20.h,),
-                    Text(
-                      state.websiteDetail!.name.substring(0,1).toUpperCase()+state.websiteDetail!.name.substring(1),
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 30.sp,
-                          fontWeight: FontWeight.w600
-                      ),
-                    ),
-                    SizedBox(height: 10.h,),
-                    Text(
-                      "+998 ${state.websiteDetail!.contact.substring(0,2)} ${state.websiteDetail!.contact.substring(2,5)} ${state.websiteDetail!.contact.substring(5,7)} ${state.websiteDetail!.contact.substring(7,9)}",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 24.sp
-                      ),
-                    ),
-                    SizedBox(height: 10.h,),
-                    Text(
-                      "Author: ${state.websiteDetail!.author}",
-                      style: TextStyle(
-                          color: Colors.black.withOpacity(0.8),
-                          fontSize: 24.sp
-                      ),
-                    ),
-                    SizedBox(height: 10.h,),
-                    Text("Website Link: ",
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16.sp
-                      ),),
-                    TextButton(
-                      onPressed: () async{
-                        await launchUrlNetwork(state.websiteDetail!.link);
-                      },
-                      child: Text(
-                        state.websiteDetail!.link,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            color: Colors.blue,
-                            fontSize: 16.sp
-                        ),
-                      ),
-                    ),
-                  ],
+              ),
+              SizedBox(height: 10.h,),
+              Text(
+                "+998 ${state.websiteDetail!.contact.substring(0,2)} ${state.websiteDetail!.contact.substring(2,5)} ${state.websiteDetail!.contact.substring(5,7)} ${state.websiteDetail!.contact.substring(7,9)}",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 24.sp
                 ),
-              )
+              ),
+              SizedBox(height: 10.h,),
+              Text(
+                "Author: ${state.websiteDetail!.author}",
+                style: TextStyle(
+                    color: Colors.black.withOpacity(0.8),
+                    fontSize: 24.sp
+                ),
+              ),
+              SizedBox(height: 10.h,),
+              Text("Website Link: ",
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16.sp
+                ),),
+              TextButton(
+                onPressed: () async{
+                  await launchUrlNetwork(state.websiteDetail!.link);
+                },
+                child: Text(
+                  state.websiteDetail!.link,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                      color: Colors.blue,
+                      fontSize: 16.sp
+                  ),
+                ),
+              ),
             ],
           );
         },

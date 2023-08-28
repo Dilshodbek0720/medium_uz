@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:medium_uz/cubits/profile/profile_cubit.dart';
+import 'package:medium_uz/presentation/tab/profile/widgets/profile_item.dart';
 import 'package:medium_uz/presentation/tab/widgets/custom_appbar.dart';
 import 'package:medium_uz/utils/images/app_images.dart';
 import 'package:medium_uz/utils/ui_utils/custom_circular.dart';
@@ -81,14 +82,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         state.userModel.username,
                         style: TextStyle(color: Colors.black, fontSize: 30.sp, fontWeight: FontWeight.w600,),
                       ),
-                      SizedBox(height: 10.h,),
+                      SizedBox(height: 6.h,),
                       Text(state.userModel.email, style: TextStyle(fontSize: 16.sp, color: Colors.black.withOpacity(0.7)),),
-                      SizedBox(height: 10.h,),
+                      SizedBox(height: 6.h,),
                       Text(
                         "Role: ${state.userModel.role}",
                         style: TextStyle(color: Colors.black.withOpacity(0.8), fontWeight: FontWeight.w500, fontSize: 17.sp),
                       ),
-                      SizedBox(height: 50.h,),
+                      SizedBox(height: 10.h,),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 5.h),
                         child: Row(
@@ -109,6 +110,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ],
                         ),
                       ),
+                      SizedBox(height: 14.h,),
+                      ProfileItem(icon: Icon(Icons.settings, color: Colors.green,size: 32.sp,), text1: "Settings", text2: "Change your setting", onTap: (){}),
+                      SizedBox(height: 12.h,),
+                      ProfileItem(icon: Icon(Icons.info, color: Colors.green,size: 32.sp,), text1: "FAQ", text2: "Consult the online help", onTap: (){}),
                     ],
                   ),
                 )

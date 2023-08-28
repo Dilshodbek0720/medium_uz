@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medium_uz/cubits/articles/article_fetch_cubit.dart';
+import 'package:medium_uz/cubits/article_add/article_add_cubit.dart';
 import 'package:medium_uz/cubits/profile/profile_cubit.dart';
 import 'package:medium_uz/cubits/tab/tab_cubit.dart';
 import 'package:medium_uz/cubits/user_data/user_data_cubit.dart';
@@ -13,6 +13,7 @@ import 'package:medium_uz/data/repositories/profile_repository.dart';
 import 'package:medium_uz/data/repositories/website_repository.dart';
 import 'package:medium_uz/presentation/app_routes.dart';
 import 'package:medium_uz/utils/theme.dart';
+import 'cubits/articles_fetch/article_fetch_cubit.dart';
 import 'cubits/auth/auth_cubit.dart';
 import 'cubits/website_fetch/website_fetch_cubit.dart';
 import 'data/repositories/auth_repository.dart';
@@ -58,6 +59,9 @@ class App extends StatelessWidget {
             create: (context) => ArticleFetchCubit(
               articleRepository: context.read<ArticleRepository>(),
             ),
+          ),
+          BlocProvider(create: (context) => ArticleAddCubit(
+              articleRepository: context.read<ArticleRepository>()),
           ),
           BlocProvider(
               create: (context) => ProfileCubit(

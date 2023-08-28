@@ -1,11 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
-import 'package:medium_uz/cubits/articles/article_fetch_cubit.dart';
-import 'package:medium_uz/cubits/articles/article_fetch_state.dart';
+import '../../../../cubits/articles_fetch/article_fetch_cubit.dart';
+import '../../../../cubits/articles_fetch/article_fetch_state.dart';
 import '../../../../data/models/status/form_status.dart';
 import '../../../../utils/colors/app_colors.dart';
 import '../../../../utils/constants/constants.dart';
@@ -36,13 +37,7 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
         builder: (context, state) {
           if (state.articleDetail == null) {
             return const Center(
-              child: Text(
-                "Loading...",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 35,
-                ),
-              ),
+              child: CupertinoActivityIndicator(),
             );
           }
           return SingleChildScrollView(
@@ -108,7 +103,7 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Text(state.articleDetail!.profession.substring(0,1).toUpperCase()+state.articleDetail!.profession.substring(1), style: TextStyle(color: Colors.black, fontStyle: FontStyle.italic),),
+                          Text(state.articleDetail!.profession.substring(0,1).toUpperCase()+state.articleDetail!.profession.substring(1), style: TextStyle(color: Colors.black, fontStyle: FontStyle.italic, fontSize: 16.sp),),
                           const Spacer(),
                         Text(state.articleDetail!.views, style: TextStyle(color: Colors.black),),
                         SizedBox(width: 3.w,),
