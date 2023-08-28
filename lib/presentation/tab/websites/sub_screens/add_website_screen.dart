@@ -28,10 +28,11 @@ class _AddWebsiteScreenState extends State<AddWebsiteScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Add Website "),
-        systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: AppColors.c_3669C9,
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: AppColors.black,
           statusBarBrightness: Brightness.light,
           statusBarIconBrightness: Brightness.light,
+            systemNavigationBarColor: Colors.black
         ),
       ),
       body: BlocConsumer<WebsiteAddCubit, WebsiteAddState>(

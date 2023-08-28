@@ -5,6 +5,7 @@ class AppImages{
 
   // png
   static String medium = "assets/images/medium.png";
+  static String background = "assets/images/background.jpg";
 
   // lottie
   static String imageLottie = "assets/lottie/image_lottie.json";

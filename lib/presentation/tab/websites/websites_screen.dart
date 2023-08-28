@@ -46,32 +46,88 @@ class _WebsitesScreenState extends State<WebsitesScreen> {
               children: [
                 ...List.generate(state.websites.length, (index) {
                   WebsiteModel website = state.websites[index];
-                  return ListTile(
-                    onTap: () {
-                      context
-                          .read<WebsiteFetchCubit>()
-                          .getWebsiteById(website.id);
-                      Navigator.pushNamed(context, RouteNames.websiteDetail);
-                    },
-                    title: Text(
-                      website.name,
-                      style: const TextStyle(
-                        color: Colors.black,
+                  return Stack(
+                    children: [
+                      Container(
+                        height: 120.h,
+                        margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
+                        decoration: BoxDecoration(
+                            boxShadow: const [
+                              BoxShadow(
+                                  color: Colors.black26,
+                                  spreadRadius: 3,
+                                  blurRadius: 3
+                              )
+                            ],
+                            borderRadius: BorderRadius.circular(16.r),
+                            color: Colors.white
+                        ),
+                        child: ListTile(
+                          contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+                          onTap: () {
+                            context
+                                .read<WebsiteFetchCubit>()
+                                .getWebsiteById(website.id);
+                            Navigator.pushNamed(context, RouteNames.websiteDetail);
+                          },
+                          title: Text(
+                            website.name.substring(0,1).toUpperCase()+website.name.substring(1),
+                            style: TextStyle(
+                              fontSize: 22.sp,
+                              color: Colors.black,
+                            ),
+                          ),
+                          subtitle: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(website.link,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                ),),
+                              Text(website.author,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                ),),
+                              SizedBox(height: 10.h,)
+                            ],
+                          ),
+                          trailing: ClipRRect(
+                            borderRadius: BorderRadius.circular(12.r),
+                            child: CachedNetworkImage(
+                              imageUrl: baseUrl+website.image.substring(1),
+                              height: 70.r,
+                              width: 70.r,
+                              fit: BoxFit.cover,
+                              placeholder: (context, url) => SizedBox(
+                                  height: 32.r,
+                                  width: 32.r,
+                                  child: Lottie.asset(AppImages.imageLottie)
+                              ),
+                              errorWidget: (context, url, error) => Icon(Icons.error, size: 30.r,),
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                    subtitle: Text(website.link),
-                    trailing: CachedNetworkImage(
-                      imageUrl: baseUrl+website.image.substring(1),
-                      height: 45.r,
-                      width: 45.r,
-                      fit: BoxFit.cover,
-                      placeholder: (context, url) => SizedBox(
-                          height: 22.r,
-                          width: 22.r,
-                          child: Lottie.asset(AppImages.imageLottie)
-                      ),
-                      errorWidget: (context, url, error) => const Icon(Icons.error),
-                    ),
+                      Positioned(
+                        bottom: 20.h,
+                        right: 32.w,
+                          child: SizedBox(
+                            height: 20.h, width: 42.w,
+                            child: Row(children: [
+                              Text(website.likes, style: const TextStyle(
+                                color: Colors.black
+                              ),),
+                              SizedBox(width: 5.w,),
+                              const Icon(Icons.favorite, color: Colors.red, size: 16,)
+                            ],),
+                          ),
+                      )
+                    ],
                   );
                 }),
               ],

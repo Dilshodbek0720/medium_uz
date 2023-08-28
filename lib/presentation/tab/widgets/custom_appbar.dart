@@ -13,10 +13,11 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget{
   Widget build(BuildContext context){
     return AppBar(
       title: Text(title),
-      systemOverlayStyle: SystemUiOverlayStyle(
-        statusBarColor: AppColors.c_3669C9,
+      systemOverlayStyle: const SystemUiOverlayStyle(
+        statusBarColor: AppColors.black,
         statusBarBrightness: Brightness.light,
         statusBarIconBrightness: Brightness.light,
+        systemNavigationBarColor: Colors.black
       ),
       toolbarHeight: 64.h,
       centerTitle: true,

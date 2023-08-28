@@ -53,10 +53,15 @@ class _TabBoxState extends State<TabBox> {
         borderRadius: BorderRadius.only(topLeft: Radius.circular(24.r), topRight: Radius.circular(24.r)),
         child: BottomNavigationBar(
           selectedIconTheme: const IconThemeData(
+            size: 28,
             color: Colors.white
           ),
+          unselectedIconTheme: const IconThemeData(
+            color: Colors.white
+          ),
+          unselectedItemColor: Colors.white,
           selectedItemColor: Colors.white,
-          backgroundColor:  AppColors.c_3669C9,
+          backgroundColor:  AppColors.black,
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.web), label: "Websites"),
             BottomNavigationBarItem(icon: Icon(Icons.article), label: "Article"),
