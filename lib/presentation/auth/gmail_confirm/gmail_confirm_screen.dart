@@ -1,15 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pinput/pinput.dart';
-import '../../../cubits/auth/auth_cubit.dart';
-import '../../../cubits/profile/profile_cubit.dart';
-import '../../../cubits/user_data/user_data_cubit.dart';
-import '../../../data/models/user/user_model.dart';
-import '../../../utils/colors/app_colors.dart';
-import '../../../utils/ui_utils/error_message_dialog.dart';
-import '../../app_routes.dart';
+import 'package:medium_uz/utils/export/export.dart';
 import '../widgets/global_button.dart';
 
 

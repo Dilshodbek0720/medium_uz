@@ -1,9 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medium_uz/cubits/auth/auth_cubit.dart';
-import 'package:medium_uz/data/local/storage_repository.dart';
-import 'package:medium_uz/presentation/app_routes.dart';
-import 'package:medium_uz/utils/images/app_images.dart';
+import 'package:medium_uz/utils/export/export.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -14,13 +9,13 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
 
-  _init() async{
-    if(StorageRepository.getString("token").isEmpty){
-      Navigator.pushReplacementNamed(context, RouteNames.loginScreen);
-    }else{
-      Navigator.pushReplacementNamed(context, RouteNames.loginScreen);
-    }
-  }
+  // _init() async{
+  //   if(StorageRepository.getString("token").isEmpty){
+  //     Navigator.pushReplacementNamed(context, RouteNames.loginScreen);
+  //   }else{
+  //     Navigator.pushReplacementNamed(context, RouteNames.loginScreen);
+  //   }
+  // }
 
   @override
   void initState() {

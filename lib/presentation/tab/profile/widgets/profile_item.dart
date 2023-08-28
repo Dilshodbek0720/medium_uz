@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medium_uz/utils/export/export.dart';
 
 class ProfileItem extends StatelessWidget {
   const ProfileItem({super.key, required this.icon, required this.text1, required this.text2, required this.onTap});

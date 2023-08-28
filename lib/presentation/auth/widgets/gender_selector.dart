@@ -1,8 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../cubits/user_data/user_data_cubit.dart';
-import '../../../data/models/user/user_field_keys.dart';
-import '../../../utils/colors/app_colors.dart';
+import 'package:medium_uz/utils/export/export.dart';
 
 class GenderSelector extends StatelessWidget {
   const GenderSelector({

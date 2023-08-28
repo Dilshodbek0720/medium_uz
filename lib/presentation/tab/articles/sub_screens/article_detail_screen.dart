@@ -1,17 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:medium_uz/utils/export/export.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lottie/lottie.dart';
-import '../../../../cubits/articles_fetch/article_fetch_cubit.dart';
-import '../../../../cubits/articles_fetch/article_fetch_state.dart';
-import '../../../../data/models/status/form_status.dart';
-import '../../../../utils/colors/app_colors.dart';
-import '../../../../utils/constants/constants.dart';
-import '../../../../utils/images/app_images.dart';
-import '../../../../utils/ui_utils/error_message_dialog.dart';
 
 class ArticleDetailScreen extends StatefulWidget {
   const ArticleDetailScreen({super.key});

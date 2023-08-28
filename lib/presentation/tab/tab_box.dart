@@ -1,13 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medium_uz/cubits/profile/profile_cubit.dart';
-import 'package:medium_uz/cubits/tab/tab_cubit.dart';
-import 'package:medium_uz/presentation/tab/profile/profile_screen.dart';
-import 'package:medium_uz/presentation/tab/websites/websites_screen.dart';
-import '../../cubits/auth/auth_cubit.dart';
-import '../../utils/colors/app_colors.dart';
-import '../app_routes.dart';
+import 'package:medium_uz/utils/export/export.dart';
 import 'articles/articles_screen.dart';
 
 class TabBox extends StatefulWidget {

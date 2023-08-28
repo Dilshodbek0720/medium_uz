@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../utils/colors/app_colors.dart';
+import 'package:medium_uz/utils/export/export.dart';
 
 class GlobalTextField extends StatelessWidget {
   GlobalTextField({

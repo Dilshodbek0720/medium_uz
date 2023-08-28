@@ -1,20 +1,5 @@
-import 'dart:ui';
-
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:medium_uz/utils/export/export.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lottie/lottie.dart';
-import 'package:medium_uz/utils/ui_utils/custom_circular.dart';
-import 'package:url_launcher/url_launcher.dart';
-import '../../../../cubits/website_fetch/website_fetch_cubit.dart';
-import '../../../../data/models/status/form_status.dart';
-import '../../../../utils/colors/app_colors.dart';
-import '../../../../utils/constants/constants.dart';
-import '../../../../utils/images/app_images.dart';
-import '../../../../utils/ui_utils/error_message_dialog.dart';
 
 class WebsiteDetailScreen extends StatelessWidget {
   const WebsiteDetailScreen({super.key});

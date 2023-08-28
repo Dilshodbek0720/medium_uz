@@ -1,17 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lottie/lottie.dart';
-import 'package:medium_uz/data/models/articles/articles_model.dart';
-import 'package:medium_uz/presentation/tab/widgets/custom_appbar.dart';
-import 'package:medium_uz/utils/constants/constants.dart';
-import '../../../cubits/articles_fetch/article_fetch_cubit.dart';
-import '../../../cubits/articles_fetch/article_fetch_state.dart';
-import '../../../data/models/status/form_status.dart';
-import '../../../utils/images/app_images.dart';
-import '../../../utils/ui_utils/error_message_dialog.dart';
-import '../../app_routes.dart';
+import 'package:medium_uz/utils/export/export.dart';
+
 
 class ArticlesScreen extends StatefulWidget {
   const ArticlesScreen({super.key});
@@ -85,10 +73,6 @@ class _ArticlesScreenState extends State<ArticlesScreen> {
                               color: Colors.greenAccent.withOpacity(0.3),
                               child: Icon(Icons.error, color: Colors.black26, size: 30.sp,)),
                         ),
-
-
-                        // Image.network(baseUrl+articleModel.avatar.substring(1), height: 60.w, width: 60.w,),
-
                         ),
                         SizedBox(width: 12.w,),
                         SizedBox(

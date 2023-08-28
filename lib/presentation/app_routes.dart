@@ -1,12 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:medium_uz/data/models/user/user_model.dart';
-import 'package:medium_uz/presentation/auth/login/login_screen.dart';
-import 'package:medium_uz/presentation/splash/splash_screen.dart';
-import 'package:medium_uz/presentation/tab/articles/sub_screens/article_add_screen.dart';
-import 'package:medium_uz/presentation/tab/articles/sub_screens/article_detail_screen.dart';
-import 'package:medium_uz/presentation/tab/tab_box.dart';
-import 'package:medium_uz/presentation/tab/websites/sub_screens/add_website_screen.dart';
-import 'package:medium_uz/presentation/tab/websites/sub_screens/website_detail_screen.dart';
+import 'package:medium_uz/utils/export/export.dart';
 import 'auth/gmail_confirm/gmail_confirm_screen.dart';
 import 'auth/register/register_screen.dart';
 
@@ -26,31 +18,31 @@ class AppRoutes {
   static Route generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case RouteNames.splashScreen:
-        return MaterialPageRoute(builder: (context) => SplashScreen());
+        return MaterialPageRoute(builder: (context) => const SplashScreen());
       case RouteNames.loginScreen:
         return MaterialPageRoute(builder: (context) {
-          return LoginScreen();
+          return const LoginScreen();
         });
 
       case RouteNames.registerScreen:
         return MaterialPageRoute(builder: (context) {
-          return RegisterScreen();
+          return const RegisterScreen();
         });
 
       case RouteNames.tabBox:
-        return MaterialPageRoute(builder: (context) => TabBox());
+        return MaterialPageRoute(builder: (context) => const TabBox());
 
       case RouteNames.addWebsite:
-        return MaterialPageRoute(builder: (context) => AddWebsiteScreen());
+        return MaterialPageRoute(builder: (context) => const AddWebsiteScreen());
 
       case RouteNames.websiteDetail:
-        return MaterialPageRoute(builder: (context) => WebsiteDetailScreen());
+        return MaterialPageRoute(builder: (context) => const WebsiteDetailScreen());
 
       case RouteNames.articleDetail:
-        return MaterialPageRoute(builder: (context) => ArticleDetailScreen());
+        return MaterialPageRoute(builder: (context) => const ArticleDetailScreen());
 
       case RouteNames.addArticle:
-        return MaterialPageRoute(builder: (context) => ArticleAddScreen());
+        return MaterialPageRoute(builder: (context) => const ArticleAddScreen());
 
       case RouteNames.confirmGmail:
         return MaterialPageRoute(builder: (context) => GmailConfirmScreen(userModel: settings.arguments as UserModel,));

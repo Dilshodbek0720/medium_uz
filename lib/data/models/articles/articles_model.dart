@@ -81,7 +81,7 @@ class ArticleModel {
     return FormData.fromMap({
       "title": title,
       "description": description,
-      "hashtag": "hashtag",
+      "hashtag": "#hashtag",
       "image": file.path,
     });
   }

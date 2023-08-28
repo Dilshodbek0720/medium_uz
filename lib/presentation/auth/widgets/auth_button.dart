@@ -1,8 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:medium_uz/utils/colors/app_colors.dart';
-import 'package:zoom_tap_animation/zoom_tap_animation.dart';
+import 'package:medium_uz/utils/export/export.dart';
 
 
 class AuthButton extends StatelessWidget {
