@@ -1,6 +1,4 @@
-import 'package:medium_uz/data/network/api_service.dart';
 import 'package:medium_uz/data/network/open_api_service.dart';
-import 'package:medium_uz/data/network/secure_api_service.dart';
 import 'package:medium_uz/services/locator_service.dart';
 import '../local/storage_repository.dart';
 import '../models/universal_data.dart';

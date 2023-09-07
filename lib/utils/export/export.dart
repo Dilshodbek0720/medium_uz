@@ -7,7 +7,6 @@ export 'package:medium_uz/cubits/tab/tab_cubit.dart';
 export 'package:medium_uz/cubits/user_data/user_data_cubit.dart';
 export 'package:medium_uz/cubits/website_add/website_add_cubit.dart';
 export 'package:medium_uz/data/local/storage_repository.dart';
-export 'package:medium_uz/data/network/api_service.dart';
 export 'package:medium_uz/data/repositories/articles_repository.dart';
 export 'package:medium_uz/data/repositories/profile_repository.dart';
 export 'package:medium_uz/data/repositories/website_repository.dart';
