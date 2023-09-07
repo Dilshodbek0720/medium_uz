@@ -1,8 +1,9 @@
+import 'package:medium_uz/services/locator_service.dart';
 import 'package:medium_uz/utils/export/export.dart';
 part 'website_add_state.dart';
 
 class WebsiteAddCubit extends Cubit<WebsiteAddState> {
-  WebsiteAddCubit({required this.websiteRepository}) : super(
+  WebsiteAddCubit() : super(
     WebsiteAddState(websiteModel: WebsiteModel(
       name: "",
       image: "",
@@ -14,8 +15,6 @@ class WebsiteAddCubit extends Cubit<WebsiteAddState> {
     ),),
   );
 
-  final WebsiteRepository websiteRepository;
-
   createWebsite(BuildContext context) async{
     emit(state.copyWith(
       status: FormStatus.loading,
@@ -23,7 +22,7 @@ class WebsiteAddCubit extends Cubit<WebsiteAddState> {
     ));
     
     showLoading(context: context);
-    UniversalData response = await websiteRepository.createWebsite(state.websiteModel);
+    UniversalData response = await getIt.get<WebsiteRepository>().createWebsite(state.websiteModel);
     if(context.mounted) hideLoading(dialogContext: context);
 
     if(response.error.isEmpty){

@@ -55,3 +55,5 @@ export 'package:equatable/equatable.dart';
 export 'package:medium_uz/data/models/universal_data.dart';
 export 'package:medium_uz/data/models/websites/website_model.dart';
 export 'package:medium_uz/utils/ui_utils/loading_dialog.dart';
+export 'package:medium_uz/services/locator_service.dart';
+export 'package:medium_uz/data/repositories/auth_repository.dart';

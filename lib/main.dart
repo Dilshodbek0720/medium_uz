@@ -1,74 +1,33 @@
 import 'package:medium_uz/utils/export/export.dart';
-import 'cubits/articles_fetch/article_fetch_cubit.dart';
-import 'cubits/website_fetch/website_fetch_cubit.dart';
-import 'data/repositories/auth_repository.dart';
 
-Future<void> main() async{
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await StorageRepository.getInstance();
-
-  runApp(App(apiService: ApiService(),));
+  await getItSetup();
+  runApp(const App());
 }
 
-
 class App extends StatelessWidget {
-  const App({super.key, required this.apiService});
+  const App({super.key});
 
-  final ApiService apiService;
 
   @override
   Widget build(BuildContext context) {
-    return MultiRepositoryProvider(
+    return MultiBlocProvider(
       providers: [
-        RepositoryProvider(
-          create: (context) => AuthRepository(apiService: apiService),
-        ),
-        RepositoryProvider(
-            create: (context) => ProfileRepository(apiService: apiService),
-        ),
-        RepositoryProvider(
-          create: (context) => ArticleRepository(apiService: apiService),
-        ),
-        RepositoryProvider(
-            create: (context) => WebsiteRepository(apiService: apiService),
-        )
+        BlocProvider(create: (context) => AuthCubit()),
+        BlocProvider(create: (context) => ArticleFetchCubit()),
+        BlocProvider(create: (context) => ArticleAddCubit()),
+        BlocProvider(create: (context) => ProfileCubit()),
+        BlocProvider(create: (context) => TabCubit()),
+        BlocProvider(create: (context) => UserDataCubit()),
+        BlocProvider(create: (context) => WebsiteAddCubit()),
+        BlocProvider(create: (context) => WebsiteFetchCubit())
       ],
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (context) => AuthCubit(
-              authRepository: context.read<AuthRepository>(),
-            ),
-          ),
-          BlocProvider(
-            create: (context) => ArticleFetchCubit(
-              articleRepository: context.read<ArticleRepository>(),
-            ),
-          ),
-          BlocProvider(create: (context) => ArticleAddCubit(
-              articleRepository: context.read<ArticleRepository>()),
-          ),
-          BlocProvider(
-              create: (context) => ProfileCubit(
-                  profileRepository: context.read<ProfileRepository>(),
-              )
-          ),
-          BlocProvider(create: (context) => TabCubit()),
-          BlocProvider(create: (context) => UserDataCubit()),
-          BlocProvider(create: (context) => WebsiteAddCubit(
-              websiteRepository: context.read<WebsiteRepository>()),
-          ),
-          BlocProvider(
-            create: (context) => WebsiteFetchCubit(
-                websiteRepository: context.read<WebsiteRepository>()),
-          ),
-        ],
-        child: const MyApp(),
-      ),
+      child: const MyApp(),
     );
   }
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

@@ -5,14 +5,13 @@ import 'package:medium_uz/data/models/status/form_status.dart';
 import 'package:medium_uz/data/models/universal_data.dart';
 import 'package:medium_uz/data/models/websites/website_model.dart';
 import 'package:medium_uz/data/repositories/website_repository.dart';
+import 'package:medium_uz/services/locator_service.dart';
 import 'package:medium_uz/utils/constants/constants.dart';
 import 'package:medium_uz/utils/ui_utils/loading_dialog.dart';
 part 'website_fetch_state.dart';
 
 class WebsiteFetchCubit extends Cubit<WebsiteFetchState> {
-  WebsiteFetchCubit({required this.websiteRepository}) : super(const WebsiteFetchState(websites: []));
-
-  final WebsiteRepository websiteRepository;
+  WebsiteFetchCubit() : super(const WebsiteFetchState(websites: []));
 
   getWebsites(BuildContext context) async{
     emit(state.copyWith(
@@ -20,7 +19,7 @@ class WebsiteFetchCubit extends Cubit<WebsiteFetchState> {
       statusText: "",
     ));
     showLoading(context: context);
-    UniversalData response = await websiteRepository.getWebsites();
+    UniversalData response = await getIt.get<WebsiteRepository>().getWebsites();
     if(context.mounted){
       debugPrint("Hiring...");
       hideLoading(dialogContext: context);
@@ -44,7 +43,7 @@ class WebsiteFetchCubit extends Cubit<WebsiteFetchState> {
       status: FormStatus.loading,
       statusText: "",
     ));
-    UniversalData response = await websiteRepository.getWebsiteById(websiteId);
+    UniversalData response = await getIt.get<WebsiteRepository>().getWebsiteById(websiteId);
     if (response.error.isEmpty) {
       emit(
         state.copyWith(

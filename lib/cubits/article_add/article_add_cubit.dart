@@ -1,8 +1,9 @@
+import 'package:medium_uz/services/locator_service.dart';
 import 'package:medium_uz/utils/export/export.dart';
 part 'article_add_state.dart';
 
 class ArticleAddCubit extends Cubit<ArticleAddState> {
-  ArticleAddCubit({required this.articleRepository}) : super(ArticleAddState(
+  ArticleAddCubit() : super(ArticleAddState(
     articleModel: ArticleModel(
       likes: "",
       image: "",
@@ -18,8 +19,6 @@ class ArticleAddCubit extends Cubit<ArticleAddState> {
     )
   ));
 
-  final ArticleRepository articleRepository;
-
   createArticle(BuildContext context) async{
     emit(state.copyWith(
         status: FormStatus.loading,
@@ -27,7 +26,7 @@ class ArticleAddCubit extends Cubit<ArticleAddState> {
     ));
 
     showLoading(context: context);
-    UniversalData response = await articleRepository.createArticle(state.articleModel);
+    UniversalData response = await getIt.get<ArticleRepository>().createArticle(state.articleModel);
     if(context.mounted) hideLoading(dialogContext: context);
 
     if(response.error.isEmpty){

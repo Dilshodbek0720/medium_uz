@@ -1,7 +1,6 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medium_uz/data/models/user/user_field_keys.dart';
 import 'package:medium_uz/data/models/user/user_model.dart';
-import 'package:meta/meta.dart';
 
 part 'user_data_state.dart';
 

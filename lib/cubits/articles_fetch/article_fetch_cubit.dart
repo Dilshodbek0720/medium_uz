@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medium_uz/services/locator_service.dart';
 import '../../data/models/articles/articles_model.dart';
 import '../../data/models/status/form_status.dart';
 import '../../data/models/universal_data.dart';
@@ -9,9 +10,8 @@ import '../../utils/ui_utils/loading_dialog.dart';
 import 'article_fetch_state.dart';
 
 class ArticleFetchCubit extends Cubit<ArticleFetchState> {
-  ArticleFetchCubit({required this.articleRepository}) : super(const ArticleFetchState(articles: []));
+  ArticleFetchCubit() : super(const ArticleFetchState(articles: []));
 
-  final ArticleRepository articleRepository;
 
   getArticles(BuildContext context) async{
     emit(state.copyWith(
@@ -19,7 +19,7 @@ class ArticleFetchCubit extends Cubit<ArticleFetchState> {
       statusText: "",
     ));
     showLoading(context: context);
-    UniversalData response = await articleRepository.getAllArticles();
+    UniversalData response = await getIt.get<ArticleRepository>().getAllArticles();
     if(context.mounted){
       debugPrint("Hiring...");
       hideLoading(dialogContext: context);
@@ -43,7 +43,7 @@ class ArticleFetchCubit extends Cubit<ArticleFetchState> {
       status: FormStatus.loading,
       statusText: "",
     ));
-    UniversalData response = await articleRepository.getArticleById(articleId);
+    UniversalData response = await getIt.get<ArticleRepository>().getArticleById(articleId);
     if (response.error.isEmpty) {
       emit(
         state.copyWith(
