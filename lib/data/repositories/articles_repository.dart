@@ -1,18 +1,17 @@
 import 'package:medium_uz/data/models/articles/articles_model.dart';
+import 'package:medium_uz/data/network/open_api_service.dart';
+import 'package:medium_uz/data/network/secure_api_service.dart';
+import 'package:medium_uz/services/locator_service.dart';
 
 import '../models/universal_data.dart';
-import '../network/api_service.dart';
 
 class ArticleRepository {
-  final ApiService apiService;
 
-  ArticleRepository({required this.apiService});
-
-  Future<UniversalData> getAllArticles() async => apiService.getAllArticles();
+  Future<UniversalData> getAllArticles() async => getIt.get<OpenApiService>().getArticles();
 
   Future<UniversalData> getArticleById(int articleId) async =>
-      apiService.getArticleById(articleId);
+      getIt.get<SecureApiService>().getArticleById(articleId);
 
   Future<UniversalData> createArticle(ArticleModel articleModel) async =>
-      apiService.createArticle(articleModel: articleModel);
+      getIt.get<SecureApiService>().createArticle(articleModel: articleModel);
 }

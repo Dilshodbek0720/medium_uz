@@ -1,29 +1,30 @@
 import 'package:medium_uz/data/network/api_service.dart';
+import 'package:medium_uz/data/network/open_api_service.dart';
+import 'package:medium_uz/data/network/secure_api_service.dart';
+import 'package:medium_uz/services/locator_service.dart';
 import '../local/storage_repository.dart';
 import '../models/universal_data.dart';
 import '../models/user/user_model.dart';
 
 class AuthRepository{
-  final ApiService apiService;
-  AuthRepository({required this.apiService});
 
   Future<UniversalData> sendCodeToGmail({
     required String gmail,
     required String password,
-})async => apiService.sendCodeToGmail(gmail: gmail, password: password);
+})async => getIt.get<OpenApiService>().sendCodeToGmail(gmail: gmail, password: password);
 
   Future<UniversalData> confirmCode({required String code}) async =>
-      apiService.confirmCode(code: code);
+      getIt.get<OpenApiService>().confirmCode(code: code);
 
   Future<UniversalData> registerUser({required UserModel userModel}) async =>
-      apiService.registerUser(userModel: userModel);
+      getIt.get<OpenApiService>().registerUser(userModel: userModel);
 
 
   Future<UniversalData> loginUser({
     required String gmail,
     required String password,
   }) async =>
-      apiService.loginUser(
+      getIt.get<OpenApiService>().loginUser(
         gmail: gmail,
         password: password,
       );
